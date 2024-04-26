@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+// frontend/src/App.js
+
+import React, { useState } from 'react';
+import WebSocketService from './services/WebSocketService';
+import Graph from './components/Graph';
 
 function App() {
+  const [historicalPrices, setHistoricalPrices] = useState(null);
+
+  // Callback function to handle incoming messages from WebSocketService
+  const handleWebSocketMessage = message => {
+    if (message.type === 'historicalPrices') {
+      setHistoricalPrices(message.data);
+    }
+    // Add handling for other message types if needed
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Cryptocurrency Price Predictor</h1>
+      {/* Render the Graph component and pass historicalPrices as props */}
+      <Graph historicalPrices={historicalPrices} />
+      
+      {/* Initialize WebSocketService and pass handleWebSocketMessage callback */}
+      <WebSocketService onMessage={handleWebSocketMessage} />
     </div>
   );
 }

@@ -9,7 +9,10 @@ function App() {
 
   // Callback function to handle incoming messages from WebSocketService
   const handleWebSocketMessage = message => {
+    console.log('Received message from server:', message);
+
     if (message.type === 'historicalPrices') {
+      console.log('Historical prices data:', message.data);
       setHistoricalPrices(message.data);
     }
     // Add handling for other message types if needed

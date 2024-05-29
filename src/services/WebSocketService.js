@@ -41,6 +41,3 @@ const WebSocketService = ({ onMessage }) => {
 };
 
 export default WebSocketService;
-
-
-// test commit
